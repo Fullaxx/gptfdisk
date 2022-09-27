@@ -1,0 +1,6 @@
+*~
+*.o
+cgdisk
+fixparts
+gdisk
+sgdisk
