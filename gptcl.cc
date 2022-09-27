@@ -70,7 +70,7 @@ int GPTDataCL::DoOptions(int argc, char* argv[]) {
    int byteSwapPartNum = 0;
    uint64_t low, high, startSector, endSector, sSize, mainTableLBA;
    uint64_t temp; // temporary variable; free to use in any case
-   char *device;
+   char *device = NULL;
    string cmd, typeGUID, name;
    PartType typeHelper;
 
@@ -155,7 +155,7 @@ int GPTDataCL::DoOptions(int argc, char* argv[]) {
    } // while
 
    // Assume first non-option argument is the device filename....
-   device = (char*) poptGetArg(poptCon);
+   device = strdup(poptGetArg(poptCon));
    poptResetContext(poptCon);
 
    if (device != NULL) {
@@ -500,6 +500,7 @@ int GPTDataCL::DoOptions(int argc, char* argv[]) {
       } // if
    } // if (device != NULL)
    poptFreeContext(poptCon);
+   if(device) { free(device); }
    return retval;
 } // GPTDataCL::DoOptions()
 
